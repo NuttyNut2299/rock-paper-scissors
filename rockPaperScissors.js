@@ -22,65 +22,104 @@ function getHumanChoice () {
     return choice;
 }
 
-function returnTie () {
-    console.log("Tie!");
-}
+// function returnTie () {
+//     console.log("Tie!");
+//     return "tie";
+// }
 
-function returnHumanWin () {
-    console.log("Human Win!");
-}
+// function returnHumanWin () {
+//     console.log("Human Win!");
+//     return "human";
+// }
 
-function returnComputerWIn () {
-    console.log("Computer Win!");
-}
+// function returnComputerWIn () {
+//     console.log("Computer Win!");
+//     return "computer";
+// }
 
-function playRound (humanChoice, computerChoice) {
-    console.log("-- Round START! --");
+function playRound (humanChoice, computerChoice, roundNumber) {
+    let result = "";
+
+    console.log("-- Round " + roundNumber + " START! --");
+
     if (humanChoice.toLowerCase() === "rock") {
         console.log("Human picked Rock!");
         if (computerChoice == 0) {
             console.log("Computer picked Rock!");
-            returnTie(); // rock
+            result = "tie";
         } else if (computerChoice == 1) {
             console.log("Computer picked Paper!");
-            returnComputerWIn(); // paper
+            result = "computer";
         } else {
             console.log("Computer picked Scissors!");
-            returnHumanWin(); // scissors
+            result = "human";
         }
     } else if (humanChoice.toLowerCase() === "paper") {
         console.log("Human picked Paper!");
         if (computerChoice == 0) {
             console.log("Computer picked Rock!");
-            returnHumanWin();
+            result = "human";
         } else if (computerChoice == 1) {
             console.log("Computer picked Paper!");
-            returnTie();
+            result = "tie";
         } else {
             console.log("Computer picked Scissors!");
-            returnComputerWin();
+            result = "computer";
         }
     } else {
         console.log("Human picked Scissors!");
         if (computerChoice == 0) {
             console.log("Computer picked Rock!");
-            returnComputerWIn();
+            result = "computer";
         } else if (computerChoice == 1) {
             console.log("Computer picked Paper!");
-            returnHumanWin();
+            result = "human";
         } else {
             console.log("Computer picked Scissors!");
-            returnTie();
+            result = "tie";
         }
     }
-    return "-- Round END! --"
+
+    console.log("-- Round " + roundNumber + " END! --");
+    return result;
 }
 
-const humanPick = getHumanChoice();
-const computerPick = getComputerChoice();
+function playGame () {
+    console.log("Let the competition begin!");
+    
+    for (let i = 1; i <= 5; i++) {
+        const humanPick = getHumanChoice();
+        const computerPick = getComputerChoice();
+        const result = playRound(humanPick,computerPick,i);
+
+        if (result === "human") {
+            console.log("Human Win!");
+            humanScore+=1;
+        } else if (result === "computer") {
+            console.log("Computer Win!");
+            computerScore+=1;
+        } else {
+            console.log("Tie!");
+        }
+
+        console.log("Current Score! Human: " + humanScore + "! Computer: " + computerScore + "!");
+    }
+
+    if (humanScore > computerScore) {
+        console.log("Human wins the ROCK PAPER SCISSORS COMPETITION!");
+    } else if (humanScore < computerScore) {
+        console.log("Computer wins the ROCK PAPER SCISSORS COMPETITION!");
+    } else {
+        console.log("Both human and computer tie in the ROCK PAPER SCISSORS COMPETITION!");
+    }
+
+    return "Until next time!";
+}
 
 // console.log("The computer picked " + getComputerChoice() + "!");
 
 // console.log(getHumanChoice());
 
-console.log(playRound(humanPick,computerPick));
+// console.log(playRound(humanPick,computerPick));
+
+console.log(playGame());
